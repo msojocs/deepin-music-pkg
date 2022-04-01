@@ -94,6 +94,21 @@ cp -dr /usr/lib/x86_64-linux-gnu/libshine.s*  $pkg_dir/usr/lib
 cp -dr /usr/lib/x86_64-linux-gnu/libssh-gcrypt.s*  $pkg_dir/usr/lib
 cp -dr /lib/x86_64-linux-gnu/libidn.s*  $pkg_dir/usr/lib
 cp -dr /usr/lib/x86_64-linux-gnu/libgsett*  $pkg_dir/usr/lib
+cp -dr /usr/lib/x86_64-linux-gnu/libxcb*  $pkg_dir/usr/lib
+# required by libavformat.so
+cp -dr /usr/lib/x86_64-linux-gnu/libopenmpt*  $pkg_dir/usr/lib
+cp -dr /usr/lib/x86_64-linux-gnu/libbluray*  $pkg_dir/usr/lib
+cp -dr /usr/lib/x86_64-linux-gnu/libgme*  $pkg_dir/usr/lib
+cp -dr /usr/lib/x86_64-linux-gnu/libchromaprint*  $pkg_dir/usr/lib
+cp -dr /usr/lib/x86_64-linux-gnu/libva.s*  $pkg_dir/usr/lib
+cp -dr /usr/lib/x86_64-linux-gnu/libva-*  $pkg_dir/usr/lib
+cp -dr /usr/lib/x86_64-linux-gnu/libzvbi.s*  $pkg_dir/usr/lib
+cp -dr /usr/lib/x86_64-linux-gnu/libxvidcore.s*  $pkg_dir/usr/lib
+cp -dr /usr/lib/x86_64-linux-gnu/libsnappy.s*  $pkg_dir/usr/lib
+cp -dr /usr/lib/x86_64-linux-gnu/libopenjp2.s*  $pkg_dir/usr/lib
+cp -dr /usr/lib/x86_64-linux-gnu/libgsm*  $pkg_dir/usr/lib
+cp -dr /usr/lib/x86_64-linux-gnu/libvdpau*  $pkg_dir/usr/lib
+cp -dr /usr/lib/x86_64-linux-gnu/libsoxr*  $pkg_dir/usr/lib
 # theme
 mkdir -p $pkg_dir/usr/lib/qt5/plugins
 cp -dr /opt/Qt/5.15.2/gcc_64/plugins/{iconengines,imageformats,platforms,platformthemes,styles} $pkg_dir/usr/lib/qt5/plugins

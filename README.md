@@ -1,10 +1,5 @@
 # DEEPIN-MUSIC PACKAGE
 
-## TODO
-
-  - [ ] appmeta
-  - [ ] 考虑ubuntu16的兼容
-
 ## 打包兼容情况
 
 appinage
