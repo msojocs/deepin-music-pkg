@@ -1,0 +1,13 @@
+--- src/kernel/dguiapplicationhelper.h	2022-03-25 12:34:36.625421975 +0800
++++ "src copy/kernel/dguiapplicationhelper.h"	2022-03-25 12:32:01.381096553 +0800
+@@ -111,9 +111,9 @@
+     static bool setSingleInstance(const QString &key, SingleScope singleScope = UserScope);
+     static void setSingleInstanceInterval(int interval = 3000);
+     D_DECL_DEPRECATED static void setSingelInstanceInterval(int interval = 3000);
++    D_DECL_DEPRECATED_X("Plase use setPaletteType") void setThemeType(ColorType themeType);
+ 
+ public Q_SLOTS:
+-    D_DECL_DEPRECATED_X("Plase use setPaletteType") void setThemeType(ColorType themeType);
+     void setPaletteType(ColorType paletteType);
+ 
+ Q_SIGNALS:

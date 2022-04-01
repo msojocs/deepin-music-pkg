@@ -1,0 +1,4 @@
+#!/bin/bash
+# export LD_LIBRARY_PATH=/run/host/usr/lib
+export QT_PLUGIN_PATH=/app/lib/qt5/plugins
+/app/bin/deepin-music -platformtheme deepin -style chameleon

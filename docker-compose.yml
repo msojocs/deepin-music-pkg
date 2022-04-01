@@ -1,0 +1,34 @@
+version: "3"
+services:
+  deepin-music:
+    # image: ubuntu-dtk-environment_env
+    build:
+      context: ./docker
+      dockerfile: Dockerfile
+    privileged: true
+    volumes:
+      - .:/workspace
+      # - ./cache/.npm:/root/.npm
+    environment:
+      - ACTION_MODE=${ACTION_MODE:-false}
+      - LOCAL_USER_ID=${DOCKER_UID:-1000}
+      - LOCAL_GROUP_ID=${DOCKER_GID:-1000}
+      - BUILD_VERSION=${BUILD_VERSION:-v0}
+    entrypoint: /workspace/docker/docker-entrypoint
+    userns_mode: "host"
+  # deepin-music-deploy:
+  #   # image: wingcon/qt5.15:20.04
+  #   build:
+  #     context: ./docker
+  #     dockerfile: Dockerfile
+  #   privileged: true
+  #   volumes:
+  #     - .:/workspace
+  #     - ./cache/.npm:/root/.npm
+  #   environment:
+  #     - ACTION_MODE=${ACTION_MODE:-false}
+  #     - LOCAL_USER_ID=${DOCKER_UID:-1000}
+  #     - LOCAL_GROUP_ID=${DOCKER_GID:-1000}
+  #     - BUILD_VERSION=${BUILD_VERSION:-v0}
+  #   entrypoint: /workspace/docker/docker-entrypoint-deploy
+  #   userns_mode: "host"
