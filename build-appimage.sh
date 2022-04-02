@@ -21,8 +21,10 @@ cd $src_dir
 src_dir="$src_dir/deepin-music"
 if [[ ! -d $src_dir ]];then
   git clone https://hub.fastgit.xyz/linuxdeepin/deepin-music.git
+else
+  cd $src_dir
+  git checkout .
 fi
-# git fetch
 
 # fix: crash for scan
 sed -i 's#  register_all_function r#  // register_all_function r#' $src_dir/src/libdmusic/metadetector.cpp
@@ -31,7 +33,7 @@ sed -i 's#  register_all();#  // register_all();#' $src_dir/src/libdmusic/metade
 ##################### 构建 ###########################
 mkdir -p $out_dir
 cd $out_dir
-sed -i 's#"-fPIC"#"-L/usr/lib/x86_64-linux-gnu -L/opt/Qt/5.15.2/gcc_64/lib -fno-sized-deallocation -fPIC"#' $src_dir/CMakeLists.txt
+sed -i 's#"-fPIC"#"-L/usr/lib/x86_64-linux-gnu -L/opt/Qt/5.15.2/gcc_64/lib -I/opt/Qt/5.15.2/gcc_64/include -fPIC"#' $src_dir/CMakeLists.txt
 export PKG_CONFIG_PATH="/usr/lib/x86_64-linux-gnu/pkgconfig:/usr/local/lib/pkgconfig:/opt/Qt/5.15.2/gcc_64/lib/pkgconfig:$PKG_CONFIG_PATH"
 cmake $src_dir
 # export LD_LIBRARY_PATH="/usr/lib/gcc/x86_64-linux-gnu/5:$LD_LIBRARY_PATH"
@@ -65,11 +67,20 @@ EOF
 chmod +x "$pkg_dir/AppRun"
 
 # lib
+# #####ubuntu18######
+# apt install -y libpq5 libpcre3 libvlc-dev libidn11 \
+# libswresample2 libwebp6 libcrystalhd3 libx265-146 \
+# libx264-152 libvpx5 libshine3 libssh-gcrypt-4 \
+# libvlc5 libvlc-bin libvlccore9 vlc-plugin-base \
+# vlc-plugin-qt 
+# #####ubuntu16######
 apt install -y libpq5 libpcre3 libvlc-dev libidn11 \
-libswresample2 libwebp6 libcrystalhd3 libx265-146 \
-libx264-152 libvpx5 libshine3 libssh-gcrypt-4 \
-libvlc5 libvlc-bin libvlccore9 vlc-plugin-base \
-vlc-plugin-qt 
+libwebp6 libcrystalhd3 vlc-plugin-base \
+libshine3 libssh-gcrypt-4 vlc-plugin-qt \
+libvlc5 libvlc-bin libvlccore9 libudfread0 librabbitmq4 \
+libsrt1.4-gnutls libcodec2-0.9
+# libvpx5 libswresample2 libx265-146 libx264-152 
+
 # apt remove -y libvlccore9
 cp -d /usr/lib/x86_64-linux-gnu/libicu*  $pkg_dir/usr/lib
 cp -d /opt/Qt/5.15.2/gcc_64/lib/libdtk*so*  $pkg_dir/usr/lib
@@ -92,7 +103,8 @@ cp -dr /usr/lib/x86_64-linux-gnu/libx264.s*  $pkg_dir/usr/lib
 cp -dr /usr/lib/x86_64-linux-gnu/libvpx.s*  $pkg_dir/usr/lib
 cp -dr /usr/lib/x86_64-linux-gnu/libshine.s*  $pkg_dir/usr/lib
 cp -dr /usr/lib/x86_64-linux-gnu/libssh-gcrypt.s*  $pkg_dir/usr/lib
-cp -dr /lib/x86_64-linux-gnu/libidn.s*  $pkg_dir/usr/lib
+cp -dr /usr/lib/x86_64-linux-gnu/libidn.s*  $pkg_dir/usr/lib # ubuntu16
+# cp -dr /lib/x86_64-linux-gnu/libidn.s*  $pkg_dir/usr/lib # ubuntu18
 cp -dr /usr/lib/x86_64-linux-gnu/libgsett*  $pkg_dir/usr/lib
 cp -dr /usr/lib/x86_64-linux-gnu/libxcb*  $pkg_dir/usr/lib
 # required by libavformat.so
@@ -109,6 +121,12 @@ cp -dr /usr/lib/x86_64-linux-gnu/libopenjp2.s*  $pkg_dir/usr/lib
 cp -dr /usr/lib/x86_64-linux-gnu/libgsm*  $pkg_dir/usr/lib
 cp -dr /usr/lib/x86_64-linux-gnu/libvdpau*  $pkg_dir/usr/lib
 cp -dr /usr/lib/x86_64-linux-gnu/libsoxr*  $pkg_dir/usr/lib
+# ubuntu16
+cp -dr /usr/lib/x86_64-linux-gnu/librabbitmq*  $pkg_dir/usr/lib
+cp -dr /usr/lib/x86_64-linux-gnu/libsrt-gnutls*  $pkg_dir/usr/lib
+cp -dr /usr/lib/x86_64-linux-gnu/libcodec2*  $pkg_dir/usr/lib
+cp -dr /usr/lib/x86_64-linux-gnu/libudfread*  $pkg_dir/usr/lib
+
 # theme
 mkdir -p $pkg_dir/usr/lib/qt5/plugins
 cp -dr /opt/Qt/5.15.2/gcc_64/plugins/{iconengines,imageformats,platforms,platformthemes,styles} $pkg_dir/usr/lib/qt5/plugins

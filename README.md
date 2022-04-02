@@ -14,3 +14,7 @@ flatpak
 ---
 使用沙箱运行，应该都兼容
 - [x] manjaro
+
+## THANKS
+
+[FFmpeg 4 - Rob Savoury](https://launchpad.net/~savoury1/+archive/ubuntu/ffmpeg4)
