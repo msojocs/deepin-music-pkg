@@ -1,14 +1,26 @@
 # DEEPIN-MUSIC PACKAGE
 
+## 构建
+
+AppImage
+---
+使用Docker构建
+`docker-compose up`
+
+Flatpak
+---
+执行`flatpak-builder build/flatpak deepin-music.yml --force-clean --install --user`
+
+
 ## 打包兼容情况
 
-appinage
+AppImage
 ---
-- [x] deepin 20
 - [x] manjaro
+- [x] deepin 20
 - [x] mint19.3
-- [ ] ubuntu18.04（未测试）
-- [ ] ubuntu16.04（glibc不兼容）
+- [x] ubuntu18.04
+- [x] ubuntu16.04
 
 flatpak
 ---
@@ -17,4 +29,4 @@ flatpak
 
 ## THANKS
 
-[FFmpeg 4 - Rob Savoury](https://launchpad.net/~savoury1/+archive/ubuntu/ffmpeg4)
+[Rob Savoury](https://launchpad.net/~savoury1)
