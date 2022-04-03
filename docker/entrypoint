@@ -11,6 +11,9 @@ catchError() {
     exit $exit_code
 }
 
+notice() {
+    echo -e "\033[36m $1 \033[0m "
+}
 success() {
     echo -e "\033[42;37m 成功 \033[0m $1"
 }
@@ -23,5 +26,11 @@ echo "start $UID"
 
 cd /workspace
 
-./build-appimage.sh
+if [[ $TEST_MODE == 'false' ]];then
+    notice 'normal'
+    ./build-appimage.sh
+else
+    notice 'test'
+    ./test/build-appimage.sh
+fi
 

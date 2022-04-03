@@ -7,7 +7,7 @@ fail() {
     echo -e "\033[41;37m 失败 \033[0m $1"
 }
 
-root_dir=$(cd `dirname $0` && pwd -P)
+root_dir=$(cd `dirname $0`/.. && pwd -P)
 build_dir="$root_dir/build"
 pkg_dir="$build_dir/AppDir"
 tmp_dir="$build_dir/tmp"
@@ -21,13 +21,13 @@ cd $src_dir
 src_dir="$src_dir/deepin-music"
 if [[ ! -d $src_dir ]];then
   git clone https://hub.fastgit.xyz/linuxdeepin/deepin-music.git
-else
-  cd $src_dir
-  git checkout .
+# else
+#   cd $src_dir
+#   git checkout .
 fi
 
-cd $src_dir
-git checkout tags/6.2.12
+# cd $src_dir
+# git checkout tags/6.2.12
 
 # fix: crash for scan, 此问题修正于：https://github.com/linuxdeepin/deepin-music/commit/36c7b09f5f9c25b8ac6c46f7d113950c05d2981f
 sed -i 's#  register_all_function r#  // register_all_function r#' $src_dir/src/libdmusic/metadetector.cpp
@@ -70,34 +70,21 @@ EOF
 chmod +x "$pkg_dir/AppRun"
 
 # lib
-# #####ubuntu18######
-# apt install -y libpq5 libpcre3 libvlc-dev libidn11 \
-# libswresample2 libwebp6 libcrystalhd3 libx265-146 \
-# libx264-152 libvpx5 libshine3 libssh-gcrypt-4 \
-# libvlc5 libvlc-bin libvlccore9 vlc-plugin-base \
-# vlc-plugin-qt 
-# #####ubuntu16######
-apt install -y libpq5 libpcre3 libvlc-dev libidn11 \
-libwebp6 libcrystalhd3 vlc-plugin-base \
-libshine3 libssh-gcrypt-4 vlc-plugin-qt \
-libvlc5 libvlc-bin libvlccore9 libudfread0 librabbitmq4 \
-libsrt1.4-gnutls libcodec2-0.9 libxcb-xinerama0 glib-networking \
-libhogweed6 idn2
-# libvpx5 libswresample2 libx265-146 libx264-152 
-
 install_lib (){
   lib_name=$1
   notice "install lib: $lib_name"
-
+  find=0
   for path in /usr/lib/x86_64-linux-gnu /usr/lib /lib/x86_64-linux-gnu /opt/Qt/5.15.2/gcc_64/lib;do
     if ls "$path/$lib_name"* 1>/dev/null 2>&1;then
       echo "found in $path"
       cp -dr "$path/$lib_name"*  $pkg_dir/usr/lib
-      return
+      find=1
     fi
   done
-  fail "库文件不存在 0"
-  exit 404
+  if [[ find == 0 ]];then
+    fail "库文件不存在 0"
+    exit 404
+  fi
 }
 install_libs (){
   for lib in $@;do
