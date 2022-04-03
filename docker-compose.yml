@@ -1,10 +1,10 @@
 version: "3"
 services:
   deepin-music:
-    # image: ubuntu-dtk-environment_env
-    build:
-      context: ./docker
-      dockerfile: Dockerfile
+    image: msojocs/deepin-music-build:16-1.0
+    # build:
+    #   context: ./docker
+    #   dockerfile: Dockerfile
     privileged: true
     volumes:
       - .:/workspace
