@@ -85,77 +85,47 @@ libsrt1.4-gnutls libcodec2-0.9 libxcb-xinerama0 glib-networking \
 libhogweed6 idn2
 # libvpx5 libswresample2 libx265-146 libx264-152 
 
+install_lib (){
+  lib_name=$1
+  notice "install lib: $lib_name"
+
+  for path in /usr/lib/x86_64-linux-gnu /usr/lib /lib/x86_64-linux-gnu /opt/Qt/5.15.2/gcc_64/lib;do
+    if ls "$path/$lib_name"* 1>/dev/null 2>&1;then
+      echo "found in $path"
+      cp -dr "$path/$lib_name"*  $pkg_dir/usr/lib
+      return
+    fi
+  done
+  fail "库文件不存在 0"
+  exit 404
+}
+install_libs (){
+  for lib in $@;do
+    install_lib $lib
+  done
+}
+
 # apt remove -y libvlccore9
-cp -d /usr/lib/x86_64-linux-gnu/libicu*  $pkg_dir/usr/lib
-cp -d /opt/Qt/5.15.2/gcc_64/lib/libdtk*so*  $pkg_dir/usr/lib
-cp -d /usr/lib/libudisk*  $pkg_dir/usr/lib
-cp -d /opt/Qt/5.15.2/gcc_64/lib/libmpris*  $pkg_dir/usr/lib
-cp -d /opt/Qt/5.15.2/gcc_64/lib/libmpris*  $pkg_dir/usr/lib
-cp -d /opt/Qt/5.15.2/gcc_64/lib/libQt5*  $pkg_dir/usr/lib
-cp -d /opt/Qt/5.15.2/gcc_64/lib/libicu*  $pkg_dir/usr/lib
+install_libs libicu libdtk libudisk libmpris libQt5 libicu libpq.s \
+            libvlc libKF5 libav libswresample.s libwebp.s libcrystalhd.s \
+            libx265.s libx264.s libvpx.s libshine.s libssh-gcrypt.s \
+            libgcrypt.s libgpg-error.s libidn.s libgsett libxcb libpcre16
+            # required by libavformat.so
+install_libs libopenmpt libbluray libgme libchromaprint libva.s libva- \
+            libzvbi.s libxvidcore.s libsnappy.s libopenjp2.s libgsm \
+            libvdpau libsoxr
+            # ubuntu16
+install_libs librabbitmq libsrt-gnutls libcodec2 libudfread libzmq \
+            libwebpmux libdav1d libaom libmp3lame libSvtAv1Enc \
+            libtwolame libmfx libOpenCL libmpg123 libssl libcrypto \
+            libnettle libpng16 libnorm libpgm-5.2 libsodium libz. \
+            libidn2 libunistring 
+            # deepin20
+install_libs libgnutls libhogweed
+
 cp -dr /opt/Qt/5.15.2/gcc_64/plugins  $pkg_dir/usr
-cp -d /usr/lib/x86_64-linux-gnu/libpq.s*  $pkg_dir/usr/lib
-cp -dr /usr/lib/x86_64-linux-gnu/libvlc*  $pkg_dir/usr/lib
 cp -dr /usr/lib/x86_64-linux-gnu/vlc  $pkg_dir/usr/lib
-cp -dr /usr/lib/x86_64-linux-gnu/libKF5*  $pkg_dir/usr/lib
-cp -dr /usr/lib/x86_64-linux-gnu/libav*  $pkg_dir/usr/lib
-cp -dr /usr/lib/x86_64-linux-gnu/libswresample.s*  $pkg_dir/usr/lib
-cp -dr /usr/lib/x86_64-linux-gnu/libwebp.s*  $pkg_dir/usr/lib
-cp -dr /usr/lib/x86_64-linux-gnu/libcrystalhd.s*  $pkg_dir/usr/lib
-cp -dr /usr/lib/x86_64-linux-gnu/libx265.s*  $pkg_dir/usr/lib
-cp -dr /usr/lib/x86_64-linux-gnu/libx264.s*  $pkg_dir/usr/lib
-cp -dr /usr/lib/x86_64-linux-gnu/libvpx.s*  $pkg_dir/usr/lib
-cp -dr /usr/lib/x86_64-linux-gnu/libshine.s*  $pkg_dir/usr/lib
-cp -dr /usr/lib/x86_64-linux-gnu/libssh-gcrypt.s*  $pkg_dir/usr/lib
-cp -dr /lib/x86_64-linux-gnu/libgcrypt.s*  $pkg_dir/usr/lib
-cp -dr /lib/x86_64-linux-gnu/libgpg-error.s*  $pkg_dir/usr/lib
-cp -dr /usr/lib/x86_64-linux-gnu/libidn.s*  $pkg_dir/usr/lib # ubuntu16
-# cp -dr /lib/x86_64-linux-gnu/libidn.s*  $pkg_dir/usr/lib # ubuntu18
-cp -dr /usr/lib/x86_64-linux-gnu/libgsett*  $pkg_dir/usr/lib
-cp -dr /usr/lib/x86_64-linux-gnu/libxcb*  $pkg_dir/usr/lib
-# required by libavformat.so
-cp -dr /usr/lib/x86_64-linux-gnu/libopenmpt*  $pkg_dir/usr/lib
-cp -dr /usr/lib/x86_64-linux-gnu/libbluray*  $pkg_dir/usr/lib
-cp -dr /usr/lib/x86_64-linux-gnu/libgme*  $pkg_dir/usr/lib
-cp -dr /usr/lib/x86_64-linux-gnu/libchromaprint*  $pkg_dir/usr/lib
-cp -dr /usr/lib/x86_64-linux-gnu/libva.s*  $pkg_dir/usr/lib
-cp -dr /usr/lib/x86_64-linux-gnu/libva-*  $pkg_dir/usr/lib
-cp -dr /usr/lib/x86_64-linux-gnu/libzvbi.s*  $pkg_dir/usr/lib
-cp -dr /usr/lib/x86_64-linux-gnu/libxvidcore.s*  $pkg_dir/usr/lib
-cp -dr /usr/lib/x86_64-linux-gnu/libsnappy.s*  $pkg_dir/usr/lib
-cp -dr /usr/lib/x86_64-linux-gnu/libopenjp2.s*  $pkg_dir/usr/lib
-cp -dr /usr/lib/x86_64-linux-gnu/libgsm*  $pkg_dir/usr/lib
-cp -dr /usr/lib/x86_64-linux-gnu/libvdpau*  $pkg_dir/usr/lib
-cp -dr /usr/lib/x86_64-linux-gnu/libsoxr*  $pkg_dir/usr/lib
-# ubuntu16
-cp -dr /usr/lib/x86_64-linux-gnu/librabbitmq*  $pkg_dir/usr/lib
-cp -dr /usr/lib/x86_64-linux-gnu/libsrt-gnutls*  $pkg_dir/usr/lib
-cp -dr /usr/lib/x86_64-linux-gnu/libcodec2*  $pkg_dir/usr/lib
-cp -dr /usr/lib/x86_64-linux-gnu/libudfread*  $pkg_dir/usr/lib
-cp -dr /usr/lib/x86_64-linux-gnu/libzmq*  $pkg_dir/usr/lib
-cp -dr /usr/lib/x86_64-linux-gnu/libwebpmux*  $pkg_dir/usr/lib
-cp -dr /usr/lib/x86_64-linux-gnu/libdav1d*  $pkg_dir/usr/lib
-cp -dr /usr/lib/x86_64-linux-gnu/libaom*  $pkg_dir/usr/lib
-cp -dr /usr/lib/x86_64-linux-gnu/libmp3lame*  $pkg_dir/usr/lib
-cp -dr /usr/lib/x86_64-linux-gnu/libSvtAv1Enc*  $pkg_dir/usr/lib
-cp -dr /usr/lib/x86_64-linux-gnu/libtwolame*  $pkg_dir/usr/lib
-cp -dr /usr/lib/x86_64-linux-gnu/libmfx*  $pkg_dir/usr/lib
-cp -dr /usr/lib/x86_64-linux-gnu/libOpenCL*  $pkg_dir/usr/lib
-cp -dr /usr/lib/x86_64-linux-gnu/libmpg123*  $pkg_dir/usr/lib
-cp -dr /usr/lib/x86_64-linux-gnu/libssl*  $pkg_dir/usr/lib
-cp -dr /usr/lib/x86_64-linux-gnu/libcrypto*  $pkg_dir/usr/lib
-cp -dr /usr/lib/x86_64-linux-gnu/libnettle*  $pkg_dir/usr/lib
-cp -dr /usr/lib/x86_64-linux-gnu/libpng16*  $pkg_dir/usr/lib
-cp -dr /usr/lib/x86_64-linux-gnu/libnorm*  $pkg_dir/usr/lib
-cp -dr /usr/lib/x86_64-linux-gnu/libpgm-5.2*  $pkg_dir/usr/lib
-cp -dr /usr/lib/x86_64-linux-gnu/libsodium*  $pkg_dir/usr/lib
-cp -dr /lib/x86_64-linux-gnu/libz.*  $pkg_dir/usr/lib
-cp -dr /usr/lib/x86_64-linux-gnu/libidn2*  $pkg_dir/usr/lib
-cp -dr /usr/lib/x86_64-linux-gnu/libunistring*  $pkg_dir/usr/lib
-# deepin20
-cp -dr /usr/lib/x86_64-linux-gnu/libgnutls*  $pkg_dir/usr/lib
 cp -dr /usr/lib/x86_64-linux-gnu/gio  $pkg_dir/usr/lib
-cp -dr /usr/lib/x86_64-linux-gnu/libhogweed*  $pkg_dir/usr/lib
 
 # theme
 mkdir -p $pkg_dir/usr/lib/qt5/plugins
