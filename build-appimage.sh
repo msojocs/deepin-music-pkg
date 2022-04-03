@@ -185,4 +185,4 @@ $tmp_dir/appimagetool-x86_64.AppImage "$pkg_dir" "$build_dir/deepin-music.AppIma
 chmod +x "$build_dir/deepin-music.AppImage"
 # "$root_dir/build/deepin-music.AppImage"
 
-tail -f /etc/issue
+#tail -f /etc/issue
