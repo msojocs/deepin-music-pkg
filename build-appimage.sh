@@ -26,7 +26,9 @@ else
   git checkout .
 fi
 
-# fix: crash for scan
+git checkout tags/6.2.12
+
+# fix: crash for scan, 此问题修正于：https://github.com/linuxdeepin/deepin-music/commit/36c7b09f5f9c25b8ac6c46f7d113950c05d2981f
 sed -i 's#  register_all_function r#  // register_all_function r#' $src_dir/src/libdmusic/metadetector.cpp
 sed -i 's#  register_all();#  // register_all();#' $src_dir/src/libdmusic/metadetector.cpp
 
