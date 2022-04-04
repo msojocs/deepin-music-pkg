@@ -14,7 +14,7 @@ finish-args:
   - --socket=wayland
   - --socket=system-bus
   - --socket=session-bus
-  # Needs to talk to the network: 就是个本地播放器，似乎不用网络
+  # Needs to talk to the network: 歌曲图片
   - --share=network
   # Needs to save files locally
   # 音乐文件可存在于任何地方
@@ -111,6 +111,7 @@ modules:
       - rm -rf /app/app
     sources:
       - type: git
+        tag: 5.5.30
         url: https://github.com/linuxdeepin/dtkcore.git
 
   - name: dtk-gui
@@ -129,7 +130,7 @@ modules:
       - rm -rf /app/app
     sources:
       - type: git
-        # tag: 5.5.21
+        tag: 5.5.22
         url: https://github.com/linuxdeepin/dtkgui.git
       - type: patch
         strip-components: 0
@@ -152,6 +153,7 @@ modules:
       - rm -rf /app/app
     sources:
       - type: git
+        tag: 5.5.44
         url: https://github.com/linuxdeepin/dtkwidget.git
       
   - name: mpris-qt5
@@ -174,6 +176,7 @@ modules:
       - sed -i 's#/lib/x86_64-linux-gnu#/lib#' /app/lib/pkgconfig/mpris-qt5.pc
     sources:
       - type: git
+        tag: 1.0.6
         url: https://github.com/sailfishos/qtmpris.git
 
   - name: qtdbusextended-qt5
