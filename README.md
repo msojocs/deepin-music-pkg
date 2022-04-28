@@ -1,5 +1,9 @@
 # DEEPIN-MUSIC PACKAGE
 
+## UPSTREAM
+
+https://github.com/linuxdeepin/deepin-music
+
 ## 构建
 
 AppImage
